@@ -39,12 +39,63 @@
     <p>What you will learn in this section:</p>
     <ul class="square">
         <li>The idea of <mark>Union Find</mark></li>
-        <li>Implementing the find() method</li>
-        <li>Implementing the union() method</li>
+        <li>How do we implement it?</li>
       </ul>
-      <p>Union Find is the approach of constructing a graph. The word union implies already what the algorithm does; creating a union. The only data structure you need is a simple array
-          
+      <h3>Union Find</h3>
+      <p>Union Find is the approach of constructing a graph. The word union implies already what the algorithm does; creating a union. The only data structure you need is a simple array.
+        Now to the one million dollar question....What do we need it for? It is a basic approach for quickly finding out how many disconnected graphs we have. It's basically being used for
+        for a disjoint set. As usual, there are a couple of implementations with different runtimes. We are going to learn quick find, quick union, path compression and union rankings.
       </p>
+      <br>
+      <h3>Implementation</h3>
+      <div class="container">
+        <div class="panel-group">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" href="#collapse1">Quick Find implementation</a>
+              </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+              <ul class="list-group">
+                <li class="list-group-item"><p style="background-color:rgba(80, 79, 79, 0.452);">
+                    <pre><code>
+                    class UnionFind {
+                    int[] root;
+                
+                    public UnionFind(int size) {
+                        root = new int[size];
+                        for (int i = 0; i < size; i++) {
+                            root[i] = i;
+                        }
+                    }
+                
+                    public int find(int x) {
+                        return root[x];
+                    }
+                        
+                    public void union(int x, int y) {
+                        int rootX = find(x);
+                        int rootY = find(y);
+                        if (rootX != rootY) {
+                            for (int i = 0; i < root.length; i++) {
+                                if (root[i] == rootY) {
+                                    root[i] = rootX;
+                                }
+                            }
+                        }
+                    }
+                
+                    public boolean isConnected(int x, int y) {
+                        return find(x) == find(y);
+                    }
+                }</code></pre>
+            </p></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
   
   </body>
