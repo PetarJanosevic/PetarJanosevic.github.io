@@ -5,6 +5,29 @@
     ul.square {
         list-style-type: square;
       }
+      .accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc; 
+}
+
+.panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+}
     </style>
   <title>Union Find</title>
   <meta charset="utf-8">
@@ -16,7 +39,7 @@
 <body>
 
 <nav class="navbar navbar-inverse">
-  <div class="container">
+  <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="index.html">Computer Science</a>
     </div>
@@ -48,16 +71,9 @@
       </p>
       <br>
       <h3>Implementation</h3>
-        <div class="panel-group">
-          <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#collapse1">Quick Find implementation</a>
-                    </h4>
-                </div>
-                <div id="collapse1" class="panel-collapse collapse">
-                     <ul class="list-group">
-                    <li class="list-group-item"><p>
+
+      <button class="accordion">Quick Find</button>
+      <div class="panel">
                     <pre><code>
                 class UnionFind {
                 int[] root;
@@ -90,13 +106,99 @@
                     }
                 }
             </code></pre>
-                    </p></li>
-                </ul>
-            </div>
-          </div>
         </div>
+
+        <button class="accordion">Quick Union</button>
+        <div class="panel">
+                      <pre><code>
+                  class UnionFind {
+                  int[] root;
+                  
+                      public UnionFind(int size) {
+                          root = new int[size];
+                          for (int i = 0; i < size; i++) {
+                              root[i] = i;
+                          }
+                      }
+                  
+                      public int find(int x) {
+                          return root[x];
+                      }
+                          
+                      public void union(int x, int y) {
+                          int rootX = find(x);
+                          int rootY = find(y);
+                          if (rootX != rootY) {
+                              for (int i = 0; i < root.length; i++) {
+                                  if (root[i] == rootY) {
+                                      root[i] = rootX;
+                                  }
+                              }
+                          }
+                      }
+                  
+                      public boolean isConnected(int x, int y) {
+                          return find(x) == find(y);
+                      }
+                  }
+              </code></pre>
+          </div>
+
+          <button class="accordion">Path Compression</button>
+          <div class="panel">
+                        <pre><code>
+                    class UnionFind {
+                    int[] root;
+                    
+                        public UnionFind(int size) {
+                            root = new int[size];
+                            for (int i = 0; i < size; i++) {
+                                root[i] = i;
+                            }
+                        }
+                    
+                        public int find(int x) {
+                            return root[x];
+                        }
+                            
+                        public void union(int x, int y) {
+                            int rootX = find(x);
+                            int rootY = find(y);
+                            if (rootX != rootY) {
+                                for (int i = 0; i < root.length; i++) {
+                                    if (root[i] == rootY) {
+                                        root[i] = rootX;
+                                    }
+                                }
+                            }
+                        }
+                    
+                        public boolean isConnected(int x, int y) {
+                            return find(x) == find(y);
+                        }
+                    }
+                </code></pre>
+            </div>
 </div>
   
+
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+    
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      });
+    }
+    </script>
+    
   </body>
   </html>
   
