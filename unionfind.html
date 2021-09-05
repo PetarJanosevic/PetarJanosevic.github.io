@@ -74,6 +74,12 @@
         As usual, there are a couple of implementations with different runtimes. We are going to learn quick find, quick union, path compression and union rankings.
       </p>
       <br>
+      Your first step would always be to create an array with the size of the amount of vertices. We call this Array <mark>root</mark>, because this particular vertex in the index
+      of your array is connected to another vertex, or in the beginning, with itself. That is why we initialise every index with the vertex number itself. Second step would be to
+      read the edges {u, v} and do a union(u, v). We compare the actual root numbers of each vertex in the union method and make one of them the root of for booth. Imagine we have
+      two vertices x and y and an edge for both. The root for x is x and y is the root of y. If we union these vertices, one of them needs to be the main root. In this algorithm
+      we consider x to be the new root. x still stays the root of itself. Of course this can all change, based on how you implement it. Below you can find a couple of implementations.
+      <br>
       <h3>Implementations<sub><font size="1">Turn your phone horizontically</font></sub></h3>
 
       <div class="col-sm-5">
@@ -130,16 +136,15 @@ int[] root;
       int rootOfX = find(x);
       int rootOfY = find(y);
       if (rootOfX != rootOfY) {
-          for (int i = 0; i < root.length; i++) {
-              if (root[i] == rootOfY) {
-                  root[i] = rootOfX;
-              }
-          }
+          root[rootofY] = rootOfX;
       }
   }
 
   public int find(int x) {
-    return root[x];
+    while (x != root[x]) {
+        x = root[x];
+    }
+    return x;
   }
 
   public boolean isConnected(int x, int y) {
@@ -154,11 +159,13 @@ int[] root;
                         <pre><code>
 class UnionFind {
 int[] root;
-
+int[] rank;
   public UnionFind(int n) {
       root = new int[n];
+      rank = new int[n];
       for (int i = 0; i < n; i++) {
           root[i] = i;
+          rank[i] = 1;
       }
   }
       
@@ -166,16 +173,22 @@ int[] root;
       int rootOfX = find(x);
       int rootOfY = find(y);
       if (rootOfX != rootOfY) {
-          for (int i = 0; i < root.length; i++) {
-              if (root[i] == rootOfY) {
-                  root[i] = rootOfX;
-              }
+          if(rank[rootOfX] > rank[rootOfY]){
+              root[rootOfY] = rootOfX;
+          } else if(rank[rootOfX] < rank[rootOfY]){
+              root[rootOfX] = rootOfY;
+          } else {
+              root[rootOfY] = rootOfX;
+              rank[rootOfX]++;
           }
       }
   }
 
   public int find(int x) {
-    return root[x];
+      if(x == root[x]){
+          return x;
+      }
+    return root[x] = find(root[x]);
   }
 
   public boolean isConnected(int x, int y) {
