@@ -65,13 +65,18 @@
         <li>How do we implement it?</li>
       </ul>
       <h3>Union Find</h3>
-      <p>Union Find is the approach of constructing a graph. The word union implies already what the algorithm does; creating a union. The only data structure you need is a simple array.
-        Now to the one million dollar question....What do we need it for? It is a basic approach for quickly finding out how many disconnected graphs we have. It's basically being used for
-        for a disjoint set. As usual, there are a couple of implementations with different runtimes. We are going to learn quick find, quick union, path compression and union rankings.
+      <p>Union Find is the approach of constructing graphs. The word union implies already what the algorithm does; creating a union, finding a union between vertices. 
+        The only data structure you need is a simple array. Now to the one million dollar question....What do we need it for? 
+        It is a basic approach for quickly finding out how many disconnected graphs we have. It's basically being used for a disjoint set of vertices. 
+        When I started studying computer science, I always thought, I would not really need union find. The more I got into this topic, I have realized how simple it is.
+        You can fastly determine wether your whole graphe is connected, if it has cycles without implementing all kinds of data structures. It is pretty easy using DFS/BFS with
+        importing libraries but implementing it all by yourself is a lot of work, while you can do it in 5 minutes with union find and an array. <br>
+        As usual, there are a couple of implementations with different runtimes. We are going to learn quick find, quick union, path compression and union rankings.
       </p>
       <br>
-      <h3>Implementation</h3>
+      <h3>Implementations</h3>
 
+      <div class="col-sm-4">
       <button class="accordion">Quick Find</button>
       <div class="panel">
         <pre><code>class UnionFind {
@@ -177,6 +182,7 @@
                         }
                     }
                 </code></pre>
+                </div>
             </div>
 </div>
   
